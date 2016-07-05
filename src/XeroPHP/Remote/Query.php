@@ -21,6 +21,7 @@ class Query {
     private $fromDate;
     private $toDate;
     private $date;
+    private $standardLayout;
     private $offset;
 
     public function __construct(Application $app) {
@@ -125,6 +126,15 @@ class Query {
     }
 
     /**
+     * @param string $standardLayout
+     * @return $this
+     */
+    public function standardLayout($standardLayout = 'true') {
+        $this->standardLayout = $standardLayout;
+        return $this;
+    }
+
+    /**
      * @param int $page
      * @return $this
      * @throws Exception
@@ -192,6 +202,10 @@ class Query {
 
         if($this->offset !== null) {
             $request->setParameter('offset', $this->offset);
+        }
+
+        if($this->standardLayout !== null) {
+            $request->setParameter('standardLayout', $this->standardLayout);
         }
 
         $request->send();
